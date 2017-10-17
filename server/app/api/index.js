@@ -1,37 +1,48 @@
-var db = require('../../config/database');
+var mysql = require('mysql');
 
 var api = {}
 
 api.adiciona = function(req, res) {
     var foto = req.body;
     delete foto._id;
-    db.insert(foto, function(err, newDoc) {
-        if(err) return console.log(err);
-        console.log('Adicionado com sucesso: ' + newDoc._id);
-        res.json(newDoc._id);
-    });  
+
+    connection().query('INSERT INTO fotos SET ?', foto, function(erro, newDoc){
+      if(erro) return console.log(erro);
+
+        console.log('Adicionado com sucesso: ' + newDoc.insertId);
+        res.json(newDoc.insertId);
+    }); 
 };
 
 api.busca = function(req, res) {
-   db.findOne({_id: req.params.fotoId }, function(err, doc) {
+    console.log(req.params.fotoId);
+    connection().query("select * from fotos where _id = ?",[req.params.fotoId],function(err, doc) {
         if (err) return console.log(err);
-        res.json(doc);
+        res.json(doc[0]);
     });
 };
 
 api.atualiza = function(req, res) {
     console.log('Parâmetro recebido:' + req.params.fotoId);
-    db.update({_id : req.params.fotoId }, req.body, function(err, numReplaced) {
+
+    foto = req.body;
+
+    console.log(foto.titulo);
+
+    connection().query('UPDATE fotos SET titulo = ?, descricao = ?, url = ? where _id = ?', 
+                            [foto.titulo, foto.descricao, foto.url, req.params.fotoId], function(err, numReplaced) {
+
         if (err) return console.log(err);
         if(numReplaced) res.status(200).end();
         res.status(500).end();
-        console.log('Atualizado com sucesso: ' + req.body._id);
+        console.log('Atualizado com sucesso: ' + foto._id);
         res.status(200).end();
+
     });  
 };
 
 api.lista = function(req, res) {
-    db.find({}).sort({titulo: 1}).exec(function(err, doc) {
+    connection().query('select * from fotos', function(err, doc) {
         if (err) return console.log(err);
         res.json(doc);
     });
@@ -48,12 +59,13 @@ api.listaPorGrupo = function(req, res) {
 
 api.remove = function(req, res) {
 
-    db.remove({ _id: req.params.fotoId }, {}, function (err, numRemoved) {
+    connection().query('delete from fotos where _id = ?', [req.params.fotoId], function (err, numRemoved) {
         if (err) return console.log(err);
         console.log('removido com sucesso');
         if(numRemoved) res.status(200).end();
         res.status(500).end();
     });
+
 };
 
 api.listaGrupos = function(req, res) {
@@ -75,5 +87,14 @@ api.listaGrupos = function(req, res) {
         
 };
 
+
+connection = function(){
+    return mysql.createConnection({
+        host: '127.0.0.1',
+        user: 'root',
+        password: 'root',
+        database: 'alurapic'
+      });
+}
 
 module.exports = api;

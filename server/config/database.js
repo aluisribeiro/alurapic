@@ -1,13 +1,14 @@
-var Datastore = require('nedb')
-    ,dbName = 'data.db'
-    ,db;
+var mysql = require('mysql');
 
-if(!db) {
-    db = new Datastore({
-        filename: dbName, 
-        autoload: true 
-    });
-    console.log('Banco ' + dbName + ' pronto para uso')
+function createDBConnection(){
+  return mysql.createConnection({
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'root',
+    database: 'alurapic'
+  });
 }
 
-module.exports = db;
+module.exports = function(){
+  return createDBConnection;
+}
