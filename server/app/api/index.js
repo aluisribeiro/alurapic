@@ -16,7 +16,7 @@ api.adiciona = function(req, res) {
 
 api.busca = function(req, res) {
     console.log(req.params.fotoId);
-    connection().query("select * from fotos where _id = ?",[req.params.fotoId],function(err, doc) {
+    connection().query("select * from fotos where _id = ?",[req.params.fotoId], function(err, doc) {
         if (err) return console.log(err);
         res.json(doc[0]);
     });
