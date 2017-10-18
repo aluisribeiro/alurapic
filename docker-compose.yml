@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=alurapic
+    restart: always
+    volumes:
+      - ./dumps:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  web:
+    build: .
+    restart: always
+    volumes:
+      - .:/usr/src/app
+    links:
+      - db:mysql
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
