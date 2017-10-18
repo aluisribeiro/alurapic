@@ -11,7 +11,7 @@ api.adiciona = function(req, res) {
 
         console.log('Adicionado com sucesso: ' + newDoc.insertId);
         res.json(newDoc.insertId);
-    }); 
+    });
 };
 
 api.busca = function(req, res) {
@@ -29,7 +29,7 @@ api.atualiza = function(req, res) {
 
     console.log(foto.titulo);
 
-    connection().query('UPDATE fotos SET titulo = ?, descricao = ?, url = ? where _id = ?', 
+    connection().query('UPDATE fotos SET titulo = ?, descricao = ?, url = ? where _id = ?',
                             [foto.titulo, foto.descricao, foto.url, req.params.fotoId], function(err, numReplaced) {
 
         if (err) return console.log(err);
@@ -38,7 +38,7 @@ api.atualiza = function(req, res) {
         console.log('Atualizado com sucesso: ' + foto._id);
         res.status(200).end();
 
-    });  
+    });
 };
 
 api.lista = function(req, res) {
@@ -72,25 +72,25 @@ api.listaGrupos = function(req, res) {
 
     res.json([
         {
-            _id: 1, 
+            _id: 1,
             nome: 'esporte'
-        }, 
-        { 
-            _id: 2, 
-            nome: 'lugares', 
-        }, 
-        { 
-            _id: 3, 
+        },
+        {
+            _id: 2,
+            nome: 'lugares',
+        },
+        {
+            _id: 3,
             nome: 'animais'
         }
     ]);
-        
+
 };
 
 
 connection = function(){
     return mysql.createConnection({
-        host: '127.0.0.1',
+        host: 'db',
         user: 'root',
         password: 'root',
         database: 'alurapic'
