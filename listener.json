@@ -1,0 +1,11 @@
+{
+    "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-1:404637587978:loadbalancer/app/alurapic-cli-elb/58792415f05ae624",
+    "Protocol": "HTTP",
+    "Port": 3000,
+    "DefaultActions": [
+        {
+            "Type": "forward",
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:404637587978:targetgroup/alurapic-cli-tg/e02bc898738c1c4e"
+        }
+    ]
+}

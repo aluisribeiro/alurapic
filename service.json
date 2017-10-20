@@ -1,0 +1,28 @@
+{
+    "cluster": "arn:aws:ecs:us-east-1:404637587978:cluster/alurapic-cli",
+    "serviceName": "alurapic-cli-srv",
+    "taskDefinition": "alurapic-taks:5",
+    "loadBalancers": [
+        {
+            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:404637587978:targetgroup/alurapic-cli-tg/e02bc898738c1c4e",
+            "containerName": "alurapic-taks",
+            "containerPort": 3000
+        }
+    ],
+    "desiredCount": 7,
+    "role": "ecsServiceRole",
+    "deploymentConfiguration": {
+        "maximumPercent": 200,
+        "minimumHealthyPercent": 50
+    },
+    "placementStrategy": [
+        {
+            "type": "spread",
+            "field": "attribute:ecs.availability-zone"
+        },
+        {
+            "type": "spread",
+            "field": "instanceId"
+        }
+    ]
+}

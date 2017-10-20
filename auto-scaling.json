@@ -1,0 +1,8 @@
+{
+    "ServiceNamespace": "ecs",
+    "ResourceId": "service/alurapic-cli/alurapic-cli-srv",
+    "ScalableDimension": "ecs:service:DesiredCount",
+    "MinCapacity": 0,
+    "MaxCapacity": 5,
+    "RoleARN": "arn:aws:iam::404637587978:role/ecsAutoscaleRole"
+}
