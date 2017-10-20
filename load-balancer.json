@@ -1,0 +1,16 @@
+{
+    "Name": "alurapic-cli-elb",
+    "Subnets": [
+        "subnet-38ba6414",
+        "subnet-38ba6414",
+        "subnet-6e3ce834",
+        "subnet-00cff165",
+        "subnet-4ed5f172",
+        "subnet-4239554e"
+    ],
+    "SecurityGroups": [
+        "sg-0db33b7f"
+    ],
+    "Scheme": "internet-facing",
+    "IpAddressType": "ipv4"
+}
