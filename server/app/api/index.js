@@ -87,10 +87,9 @@ api.listaGrupos = function(req, res) {
 
 };
 
-
 connection = function(){
     return mysql.createConnection({
-        host: '54.164.51.82',
+        host: 'db',
         user: 'root',
         password: 'root',
         database: 'alurapic'
