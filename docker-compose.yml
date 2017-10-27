@@ -18,7 +18,6 @@ services:
     volumes:
       - ./client:/usr/src/app/client
       - ./server/app:/usr/src/app/server/app
-      - ./server/app:/usr/src/app/server/config
     links:
       - db:mysql
     ports:
