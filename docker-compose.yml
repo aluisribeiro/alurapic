@@ -5,7 +5,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=alurapic
-    restart: always
     volumes:
       - ./dumps:/docker-entrypoint-initdb.d
       - db_data:/var/lib/mysql
@@ -14,12 +13,11 @@ services:
 
   web:
     build: .
-    restart: always
     volumes:
       - ./client:/usr/src/app/client
       - ./server/app:/usr/src/app/server/app
     links:
-      - db:mysql
+      - db
     ports:
       - "3000:3000"
 
