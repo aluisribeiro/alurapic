@@ -15,7 +15,6 @@ api.adiciona = function(req, res) {
 };
 
 api.busca = function(req, res) {
-    console.log(req.params.fotoId);
     connection().query("select * from fotos where _id = ?",[req.params.fotoId], function(err, doc) {
         if (err) return console.log(err);
         res.json(doc[0]);
@@ -87,10 +86,9 @@ api.listaGrupos = function(req, res) {
 
 };
 
-
 connection = function(){
     return mysql.createConnection({
-        host: '54.164.51.82',
+        host: 'db',
         user: 'root',
         password: 'root',
         database: 'alurapic'
