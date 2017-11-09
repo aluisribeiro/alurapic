@@ -1,0 +1,39 @@
+{
+  "family": "mysql-cli",
+  "placementConstraints": [],
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "name": "mysql",
+      "image": "mysql:5.7",
+      "cpu": 700,
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 3306,
+          "hostPort": 3306,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "mountPoints": [
+        {
+          "sourceVolume": "mysql-data",
+          "containerPath": "/var/lib/mysql"
+        }
+      ],
+      "environment": [
+        {
+        "name": "MYSQL_ROOT_PASSWORD",
+        "value": "root"
+        }
+      ]
+    }
+  ],
+  "volumes": [{
+      "name": "mysql-data",
+      "host": {
+        "sourcePath": "/ecs/mysql-data"
+      }}
+  ]
+}
